@@ -46,6 +46,7 @@ window.addEventListener("load", imagesLoaded);
 
 /* Slider */
 let currentIndex = 0;
+let myvar = 1;
 
 const sliderControlItems = document.querySelectorAll('.slider-control-li');
 sliderControlItems[0].style.backgroundColor = 'rgb(59, 88, 255)';
@@ -76,10 +77,6 @@ function showSlide(index,a) {
 
             element.style.transform = `translateY(${offset}%)`;
         }
-        
-        
-    
-        
     });
 
     if(a==1){
@@ -116,12 +113,13 @@ function prevSlide() {
 
 // Auto-slide functionality (optional)
 const myinterval = setInterval(() => {
-    nextSlide(1);
+    nextSlide(myvar);
 }, 3000); // Change slide every 3 seconds
 
 
 setTimeout(() => {
-    clearInterval(myInterval);
+    clearInterval(myinterval);
+    myvar = 0;
     console.log("Auto-slide stopped"); // This is optional for debugging purposes
   }, 10000);
 
@@ -147,6 +145,11 @@ sliderControlItems.forEach((elem, index) => {
 
 
 
+var nav_btn = document.querySelector('#nav-btn');
+var nav_btn_img = document.querySelector('#heroimgmob');
+var navbar = document.querySelector('#navbar-mob');
+var nav_btn_close = document.querySelector('#nav-btn-close');
+
 
 const nav_items = document.querySelectorAll('.nav-link');
 
@@ -166,16 +169,25 @@ nav_items.forEach((elem, index) => {
         removeActiveLink(); 
         elem.classList.add('active-link');
         console.log(index);
+
+        
+        gsap.to('#navbar-mob',{
+            x: '-100%',
+        });
+        
+        navbar.style.display = 'none';
+        navbar.style.left = '-70%';
+        navbar.style.position = 'absolute';
+        nav_btn.style.display = 'block';
+        nav_btn_close.style.display = 'none';
+        gsap.to('#nav-btn',{
+            y:10,
+            duration:0.2,
+            opacity:1,
+            
+        });
     });
 });
-
-
-
-
-
-
-
-
 
 
 const sections = document.querySelectorAll('.section');
@@ -205,132 +217,37 @@ sections.forEach(section => {
 
 /*Click Navbar Btn */
 
+nav_btn.addEventListener('click', () => {
+    const timeline = gsap.timeline();
 
-var nav_btn = document.querySelector('#nav-btn');
-var nav_btn_img = document.querySelector('#heroimgmob');
-var navbar = document.querySelector('#navbar-mob');
-var nav_btn_close = document.querySelector('#nav-btn-close');
-
-nav_btn.addEventListener('click',()=>{
-    
-    gsap.to('#nav-btn',{
-        y:-20,
-        opacity:0,
-        duration:0.2,
-        
-    });
-
-    gsap.to('#nav-btn-close',{
-        delay:0.5,
-        rotation:360,
-        duration:0.5,
-    });
-
-    gsap.to('#navbar-mob',{
-        x: '100%',
-    });
-
-    
-    gsap.from('#heroimg',{
-        x:-100,
-        delay:0.5,
-        opacity:0,
-        scale:0.5,
-        duration:0.5,
-    });
-
-    gsap.from('#heroname',{
-        x:+100,
-        delay:0.5,
-        opacity:0,
-        scale:0.5,
-        duration:0.5,
-    });
-
-
-    gsap.from('.nav-contact',{
-        x:+100,
-        delay:0.5,
-        opacity:0,
-        // scale:0.5,
-        duration:0.2,
-        stagger:true,
-    });
-
-    var t1 = gsap.timeline();
-
-    t1.from('#nav-links-list .nav-item',{
-        x:-100,
-        opacity:0,
-        scale:0.5,
-        // duration:0.5,
-        stagger:0.1,
-        // delay:1
-    });
-
-
-    t1.from('#contact-icons .icon',{
-        x:200,
-        opacity:0,
-        // duration:0.5,
-        stagger:0.2,
-    });
-
-
-
+    timeline.to('#nav-btn', { y: -20, opacity: 0, duration: 0.2 })
+        .to('#nav-btn-close', { rotation: 360, duration: 0.5, delay: 0.3 })
+        .to('#navbar-mob', { x: '100%' }, "<")
+        .from('#heroimg', { x: -200, opacity: 0, scale: 0.5, duration: 0.8 }, "<")
+        .from('#heroname', { x: 200, opacity: 0, scale: 0.5, duration: 0.8 }, "<")
+        .from('.nav-contact', { x: 100, opacity: 0, duration: 0.2, stagger: 0.1 }, "<")
+        .from('#nav-links-list .nav-item', { x: -100, opacity: 0, scale: 0.5, stagger: 0.1 }, "<")
+        .from('#contact-icons .icon', { x: 200, opacity: 0, stagger: 0.2 }, "<");
 
     navbar.style.display = 'flex';
-    // navbar.style.left = '0';
     navbar.style.position = 'fixed';
     nav_btn.style.display = 'none';
     nav_btn_close.style.display = 'block';
-
-    
-
-    
 });
 
-nav_btn_close.addEventListener('click',()=>{
-    gsap.from('#nav-btn-close',{
-        opacity:0,
-        y:-10,
-        rotation:360,
-        duration:0.5,
-      });
 
+nav_btn_close.addEventListener('click', () => {
+    const timeline = gsap.timeline();
 
-    gsap.to('#navbar-mob',{
-        x: '-100%',
-    });
+    timeline.to('#nav-btn-close', { opacity: 1, y: -10, rotation: -360, duration: 0.5 })
+        .to('#navbar-mob', { x: '-100%' })
+        .to('#nav-btn', { y: 10, opacity: 1, duration: 0.2 }, "<");
+
     navbar.style.display = 'none';
-    // navbar.style.left = '-70%';
     navbar.style.position = 'absolute';
     nav_btn.style.display = 'block';
     nav_btn_close.style.display = 'none';
-    gsap.to('#nav-btn',{
-        y:10,
-        duration:0.2,
-        opacity:1,
-        
-    });
 });
-
-
-// nav_btn_img.addEventListener('click',()=>{
-//     navbar.style.display = 'flex';
-//     navbar.style.left = '0';
-//     navbar.style.position = 'fixed';
-//     nav_btn.style.display = 'none';
-//     nav_btn_close.style.display = 'block';
-
-// });
-
-
-
-
-
-
-
 
 
 
@@ -339,110 +256,58 @@ nav_btn_close.addEventListener('click',()=>{
 
 
 /* Animations */
-    
-gsap.from('#heroimg',{
-    x:-100,
-    delay:0.5,
-    opacity:0,
-    scale:0.5,
-    duration:0.5,
-});
+const timeline = gsap.timeline({ delay: 0.5 });
 
-gsap.from('#heroname',{
-    x:+100,
-    delay:0.5,
-    opacity:0,
-    scale:0.5,
-    duration:0.5,
-});
+timeline.from('#heroimg-desk', { x: -100, opacity: 0, scale: 0.5, duration: 0.5 })
+    .from('#heroname-desk', { x: 100, opacity: 0, scale: 0.5, duration: 0.5 }, )
+    .from('.nav-contact-desk', { x: 100, opacity: 0, duration: 0.2, stagger: 0.1 }, "<")
+    .from('#nav-links-list-desk .nav-item', { x: -100, opacity: 0, scale: 0.5, stagger: 0.1 }, "<")
+    .from('#contact-icons-desk .icon', { x: 200, opacity: 0, stagger: 0.2 }, "<");
 
-
-gsap.from('.nav-contact',{
-    x:+100,
-    delay:0.5,
-    opacity:0,
-    // scale:0.5,
-    duration:0.2,
-    stagger:true,
-});
-
-var t1 = gsap.timeline();
-
-t1.from('#nav-links-list .nav-item',{
-    x:-100,
-    opacity:0,
-    scale:0.5,
-    // duration:0.5,
-    stagger:0.1,
-    // delay:1
-});
-
-
-t1.from('#contact-icons .icon',{
-    x:200,
-    opacity:0,
-    // duration:0.5,
-    stagger:0.2,
-});
 
 
 /*About */
-
-t2 = gsap.timeline();
+const t2 = gsap.timeline();
 
 t2.from('#about1', {
     opacity: 0,
     x: -200,
-    // delay:0.5,
     duration: 0.5,
-    // scale:0.2,
-    stagger:0.2,
+    stagger: 0.2,
     scrollTrigger: {
-      trigger: "#about1",
-      scroller: "#right-column",
-      start: "top 60%",
-      end: "top 20%",
-      scrub:2,
+        trigger: "#about1",
+        scroller: "#right-column",
+        start: "top 60%",
+        end: "top 20%",
+        scrub: 2,
     }
-
-});
-
-t2.from('#about2', {
+})
+.from('#about2', {
     opacity: 0,
     x: 200,
-    // delay:0.5,
     duration: 0.5,
-    // scale:0.2,
-    stagger:0.2,
+    stagger: 0.2,
     scrollTrigger: {
-      trigger: "#about2",
-      scroller: "#right-column",
-      start: "top 60%",
-      end: "top 20%",
-      scrub:2,
+        trigger: "#about2",
+        scroller: "#right-column",
+        start: "top 60%",
+        end: "top 20%",
+        scrub: 2,
     }
-
-});
-
-
-
-gsap.from('#about2 .card', {
+})
+.from('#about2 .card', {
     opacity: 0,
     x: 200,
-    // delay:0.5,
     duration: 0.5,
-    // scale:0.2,
-    stagger:0.5,
+    stagger: 0.5,
     scrollTrigger: {
-      trigger: "#about2",
-      scroller: "#right-column",
-      start: "top 50%",
-      end: "top 20%",
-      scrub:2,
+        trigger: "#about2",
+        scroller: "#right-column",
+        start: "top 50%",
+        end: "top 20%",
+        scrub: 2,
     }
-
-});
-
+}, "<"); // Ensures this animation starts at the same time as the previous one
 
 /*Education */
 
@@ -581,22 +446,22 @@ gsap.from('.languages3', {
 /*Competitive programming */
 
 
-gsap.from(['#competitive-programming .head-heading','#competitive-programming .heading-meta'], {
-    opacity: 0,
-    y: 200,
-    delay:0.5,
-    duration: 0.5,
-    // scale:0.2,
-    stagger:0.2,
-    scrollTrigger: {
-      trigger: "#competitive-programming",
-      scroller: "#right-column",
-      start: "top 60%",
-      end: "top 20%",
-      scrub:2,
-    }
+// gsap.from(['#competitive-programming .head-heading','#competitive-programming .heading-meta'], {
+//     opacity: 0,
+//     y: 200,
+//     delay:0.5,
+//     duration: 0.5,
+//     // scale:0.2,
+//     stagger:0.2,
+//     scrollTrigger: {
+//       trigger: "#competitive-programming",
+//       scroller: "#right-column",
+//       start: "top 60%",
+//       end: "top 20%",
+//       scrub:2,
+//     }
 
-});
+// });
 
 
 
@@ -640,22 +505,22 @@ gsap.from('#competitive-programming .mybtn', {
 /*Project*/
 
 
-gsap.from(['#development .head-heading','#development .heading-meta'], {
-    opacity: 0,
-    y: 200,
-    delay:0.5,
-    duration: 0.5,
-    // scale:0.2,
-    stagger:0.2,
-    scrollTrigger: {
-      trigger: "#development",
-      scroller: "#right-column",
-      start: "top 60%",
-      end: "top 20%",
-      scrub:2,
-    }
+// gsap.from(['#development .head-heading','#development .heading-meta'], {
+//     opacity: 0,
+//     y: 200,
+//     delay:0.5,
+//     duration: 0.5,
+//     // scale:0.2,
+//     stagger:0.2,
+//     scrollTrigger: {
+//       trigger: "#development",
+//       scroller: "#right-column",
+//       start: "top 60%",
+//       end: "top 20%",
+//       scrub:2,
+//     }
 
-});
+// });
 
 
 
@@ -702,21 +567,21 @@ gsap.from('#development .mybtn' , {
 /*Development2 */
 
 
-gsap.from('#development2 .head-heading', {
-    opacity: 0,
-    y: 100,
-    // delay:0.5,
-    // duration: 0.1,
-    // scale:0.2,
-    scrollTrigger: {
-      trigger: "#development2",
-      scroller: "#right-column",
-      start: "top 60%",
-      end: "top 20%",
-      scrub:2,
-    }
+// gsap.from('#development2 .head-heading', {
+//     opacity: 0,
+//     y: 100,
+//     // delay:0.5,
+//     // duration: 0.1,
+//     // scale:0.2,
+//     scrollTrigger: {
+//       trigger: "#development2",
+//       scroller: "#right-column",
+//       start: "top 60%",
+//       end: "top 20%",
+//       scrub:2,
+//     }
 
-});
+// });
 
 gsap.from('#development2 .project-div', {
     opacity: 0,
