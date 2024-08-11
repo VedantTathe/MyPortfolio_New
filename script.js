@@ -85,14 +85,14 @@ function showSlide(index,a) {
             delay:0.6,
             opacity:0,
             scale:0.2,
-            // x:300,
+            x:300,
             
         });
         
-        // gsap.to('.slide h1',{
-        //     delay:1,
-        //     opacity:1,
-        // });
+        gsap.to('.slide h1',{
+            delay:1,
+            opacity:1,
+        });
     }
     
     sliderControlItems.forEach((elem, index) => {
@@ -265,6 +265,21 @@ timeline.from('#heroimg-desk', { x: -100, opacity: 0, scale: 0.5, duration: 0.5 
     .from('#contact-icons-desk .icon', { x: 200, opacity: 0, stagger: 0.2 }, "<");
 
 
+
+
+gsap.from('.slide h1',{
+    delay:0.6,
+    opacity:0,
+    scale:0.2,
+    x:20,
+});
+
+gsap.to('.slide h1',{
+    x:0,
+    delay:1,
+    opacity:1,
+    scale:1,
+});
 
 /*About */
 const t2 = gsap.timeline();
