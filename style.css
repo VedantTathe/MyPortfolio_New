@@ -497,9 +497,9 @@ border-color: transparent transparent #2fa499 transparent;
 #heroimgmob{
     border: 3px solid white !important;
     border-radius: 50%;
-    position: absolute;
-    right: 0;
-    top: 0px;
+    /* position: absolute; */
+    /* right: 0; */
+    /* top: 0px; */
 
 }
 
@@ -546,7 +546,8 @@ border-color: transparent transparent #2fa499 transparent;
 
 
 
-@media only screen and (max-width: 950px) and (max-height: 1700px) {
+
+@media only screen and (max-width: 750px) {
     #hero {
         background: linear-gradient(rgba(172, 172, 172, 0.5), rgba(154, 154, 154, 0.5)), url('images/hero_img_mobile.png');
         width: 100%;
@@ -557,7 +558,9 @@ border-color: transparent transparent #2fa499 transparent;
 }
 
 
-@media only screen and (max-width: 750px) {
+
+
+@media (min-height: 1700px) {
     #hero {
         background: linear-gradient(rgba(172, 172, 172, 0.5), rgba(154, 154, 154, 0.5)), url('images/hero_img_mobile.png');
         width: 100%;
@@ -565,4 +568,10 @@ border-color: transparent transparent #2fa499 transparent;
         background-size: cover;
         background-repeat: no-repeat;
     }
+    #footer{
+        height: 10rem;
+        padding-bottom: 50rem;
+        background-color: white !important;
+    }
+
 }
