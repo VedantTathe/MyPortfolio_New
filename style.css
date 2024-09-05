@@ -500,6 +500,8 @@ border-color: transparent transparent #2fa499 transparent;
     /* position: absolute; */
     /* right: 0; */
     /* top: 0px; */
+    position: fixed;
+    z-index: 16;
 
 }
 

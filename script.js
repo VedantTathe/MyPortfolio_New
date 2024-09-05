@@ -142,6 +142,16 @@ sliderControlItems.forEach((elem, index) => {
     });
 });
 
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        console.log('User switched away from the tab');
+        clearInterval(myinterval);
+    } else {
+        console.log('User switched back to the tab');
+        clearInterval(myinterval);
+    }
+});
+
 
 
 
